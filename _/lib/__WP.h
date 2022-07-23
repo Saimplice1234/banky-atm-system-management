@@ -13,6 +13,8 @@
 
 #define RULES_AT_SYS   "whiptail --textbox --scrolltext _/info/WARN.txt 10 78"
 
+#define SYSTEM_BLOCKED "whiptail --textbox --scrolltext _/info/SYSTEM_BLOCKED.txt 15 78"
+
 #define MENU_AT_SYS \
 "whiptail --nocancel --title 'BANKY' --menu 'WHICH TRANSACTION YOU NEED TO MAKE?' 18 58 10 \
     'NEW    USER' '  -------------Create An Account' \

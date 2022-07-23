@@ -5,6 +5,7 @@
 #include "_/lib/__ENV.h"
 #include "_/lib/__WP.h"
 #include "_/lib/__CUS.h"
+#include "_/lib/__LOGS_MANAGER.h"
 
 char *  REQUIRE_USERNAME(){
     FILE * PR;
@@ -97,59 +98,37 @@ void system_state_write(int attempt){
     fprintf(db_state,"%d;%s",attempt,STATE_DATE);
     fclose(db_state);
 }
-char * INIT_DATABASE_LOGS(){
 
-    FILE * DB_LOGS;
-    char * path_base="_/logs/";
-    static char   path[40];
+void root_access(char * db_link){
+    
+    if(GET_LAST_STATE_SYSTEM(db_link) > 5){
+        system(SYSTEM_BLOCKED);
+    }else{
 
-    time_t t = time(NULL);
-    char * state_date=ctime(&t);
-    struct DATE_PARSED d=remove_word_at(state_date,0);
-    
-    snprintf(path, sizeof(path), "%s%s%s%s%s",path_base,d.__week,d.__day,d.__month,d.__year);
-    DB_LOGS=fopen(path,"w");
-    fprintf(DB_LOGS,"%d",0);
-    fclose(DB_LOGS);
-
-    return path;
-    
-}
-int GET_LAST_STATE_SYSTEM(char * DATABASE_NAME){
-    int LAST_STATE;
-    FILE * LOGS_DIRECTORY;
-    char buf[1];
-    fgets(buf,sizeof(buf),LOGS_DIRECTORY);
-    return atoi(buf);
-}
-void WRITE_LOGS(char * DATABASE_NAME){
-    FILE * LOGS_DIRECTORY;
-    printf("The last state is %d",GET_LAST_STATE_SYSTEM(DATABASE_NAME));
-    /*GET THE LAST STATE OF THE SYSTEM*/
-}
-int root_access(){
-    
-    FILE * output;
-    output=popen(CRED_BOX_AT_SYS,"r");
-    int SYSTEM_ROOT_ATTEMPT;
-    if(output != NULL){
-        
-        char FIELD[50];
-        fgets(FIELD,sizeof(FIELD),output);
-        if(strcmp("root",FIELD) == 0){
-            GAUGE_AT_SYS_2
-            AT_SYS_INTERFACE();
-        }else{
-            system(WARNING_F_CRED);
-            root_access();
+        FILE * output;
+        output=popen(CRED_BOX_AT_SYS,"r");
+        int SYSTEM_ROOT_ATTEMPT;
+        if(output != NULL){
+            
+            char FIELD[50];
+            fgets(FIELD,sizeof(FIELD),output);
+            if(strcmp("root",FIELD) == 0){
+                GAUGE_AT_SYS_2
+                AT_SYS_INTERFACE();
+            }else{
+                WRITE_LOGS(db_link);
+                system(WARNING_F_CRED);
+                root_access(db_link);
+            }
         }
+        fclose(output);
     }
-    fclose(output);
 }
 int main(){
-    char * db_link=INIT_DATABASE_LOGS();
-    WRITE_LOGS(db_link);
-    //GAUGE_AT_SYS_1
-    //root_access();
+    while(1){
+        char * db_link=INIT_DATABASE_LOGS();
+        GAUGE_AT_SYS_1
+        root_access(db_link);   
+    }
     return 0;
 }
