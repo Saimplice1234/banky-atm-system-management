@@ -12,4 +12,4 @@
 - Block system because of intrusion system detection.
 
 # Insight
-<img src="https://user-images.githubusercontent.com/69945589/180905549-2cd5db41-bbf6-4c0c-9813-42b55330d17d.png" height="100" width="100" >
+![text](https://user-images.githubusercontent.com/69945589/180905549-2cd5db41-bbf6-4c0c-9813-42b55330d17d.png){ width=60%,height:30px }
