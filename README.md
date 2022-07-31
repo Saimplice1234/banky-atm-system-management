@@ -1,5 +1,5 @@
 # banky-atm-system-management
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)</br>
 🏦 Banky is an 🏧 ATM system made with C, Bash and Python and assembly x64 language. The system offers the possibility for our client to carry out many transactions such as creating an account on the system, deleting it, withdrawing 💸 💰 funds and transferring 💰 funds from his account. The system ensures the confidentiality of our customers and protects all ✨ customers.
 
 # Programming Languages used
